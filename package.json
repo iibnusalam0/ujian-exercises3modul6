@@ -4,7 +4,7 @@
   "description": "build-express-ecommerce-app",
   "main": "index.js",
   "scripts": {
-    "test": "testing-ecpress-ecommerce"
+    "test": "testing-express-ecommerce"
   },
   "keywords": [
     "express"

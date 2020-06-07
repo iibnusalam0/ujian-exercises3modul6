@@ -1,0 +1,84 @@
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Ubah Produk</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Ubah Form</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- left column -->
+        
+        <!--/.col (left) -->
+        <!-- right column -->
+        <div class="col-md-12">
+          <!-- Horizontal Form -->
+
+          <!-- /.card -->
+          <!-- general form elements disabled -->
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Ubah Produk</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+            <%
+              if (data.length)
+              {
+                for (var i=0; i < data.length; i++)
+                {
+            %>
+              <form action="/ujian-exercises3modul6/adminLTE/edit_produk/<%= data[i].id_product %>" method="post" enctype="multipart/form-data">
+                  <!-- text input -->
+                  <div class="form-group">
+                    <label>Nama Produk</label>
+                    <input type="text" class="col-md-4 form-control" placeholder="Enter ..." name="nm_produk" value="<%= data[i].nama_produk %>">
+                  </div>
+                  <div class="form-group">
+                    <label>Harga Produk</label>
+                    <input type="number" class="col-md-4 form-control" placeholder="Enter ..." name="harga_produk" value="<%= data[i].harga_product %>">
+                  </div>
+                  <div class="form-group">
+                    <label>Deskripsi Produk</label>
+                    <textarea class="col-md-4 form-control" rows="3" placeholder="Enter ..." name="des_produk"><%= data[i].des_product %>"</textarea>
+                  </div>
+                  <img src="/public/adminLTE/produk_images/<%= data[i].gambar_produk %>" width="70" height="140" /
+                  <div class="form-group">                  
+                    <label for="exampleInputFile">Image Upload</label>                  
+                    <input type="file" name="image" id="exampleInputFile" />
+                    <input type="hidden" class="form-control" name="image_old" id="exampleInputEmail1" value="<%= data[i].gambar_produk %>" />
+                    <p class="help-block">Please choose an image!</p>
+                  </div>
+                <div class="col-md-1 right">
+                  <button id="btn-login" type="submit" class="btn btn-primary">Ubah</button>
+                </div>
+              </form>
+              <%
+                  }
+                }
+              %>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>

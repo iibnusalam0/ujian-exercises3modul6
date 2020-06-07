@@ -13,21 +13,6 @@ exports.home = function (req, res)
     });
 }
 
-// exports.product = function (req, res)
-// {
-//     req.getConnection(function (err, connect) {
-//         var query = connect.query('SELECT * FROM news_tbl', function (err, rows) {
-//             if (err) {
-//                 console.log('Error message: %', err);
-//             }
-//             res.render('products_detail', {
-//                 page_title: "Express Ecommerce - Products Detail",
-//                 data: rows
-//             });
-//         });
-//     });
-// }
-
 exports.products_detail = function (req, res)
 {
     var id_product = req.params.id_product;

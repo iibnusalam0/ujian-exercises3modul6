@@ -48,22 +48,22 @@ app.get('/', function (req, res)
 
 app.get('/ujian-exercises3modul6', frontendku.home);
 // app.get('/ujian-exercises3modul6/product/', frontendku.product);
-app.get('/ecommerce-modul6/products_detail/:id_product', frontendku.products_detail);
+app.get('/ujian-exercises3modul6/products_detail/:id_product', frontendku.products_detail);
 // app.get('/express/about', frontendku.about);
 // app.get('/express/contact', frontendku.contact);
 // app.get('/express/gallery', frontendku.gallery);
-// app.get('/express/search-news', frontendku.search_news);
+// app.get('/express/search-produk', frontendku.search_produk);
 
-app.get('/express/admin', adminku.home);
-app.get('/express/admin/login', adminku.login);
-app.post('/express/admin/login', adminku.login);
-app.get('/express/admin/home', adminku.home);
-app.get('/express/admin/add_news', adminku.add_news);
-app.post('/express/admin/add_news', adminku.process_add_news);
-app.get('/express/admin/edit_news/:id_news', adminku.edit_news);
-app.post('/express/admin/edit_news/:id_news', adminku.process_edit_news);
-app.get('/express/admin/delete_news/:id_news', adminku.delete_news);
-app.get('/express/admin/logout', adminku.logout);
+app.get('/ujian-exercises3modul6/adminLTE', adminku.home);
+app.get('/ujian-exercises3modul6/adminLTE/login', adminku.login);
+app.post('/ujian-exercises3modul6/adminLTE/login', adminku.login);
+app.get('/ujian-exercises3modul6/adminLTE/home', adminku.home);
+app.get('/ujian-exercises3modul6/adminLTE/add_produk', adminku.add_produk);
+app.post('/ujian-exercises3modul6/adminLTE/add_produk', adminku.process_add_produk);
+app.get('/ujian-exercises3modul6/adminLTE/edit_produk/:id_produk', adminku.edit_produk);
+app.post('/ujian-exercises3modul6/adminLTE/edit_produk/:id_produk', adminku.process_edit_produk);
+app.get('/ujian-exercises3modul6/adminLTE/delete_produk/:id_produk', adminku.delete_produk);
+app.get('/ujian-exercises3modul6/adminLTE/logout', adminku.logout);
 
 app.listen(app.get('port'), function()
 {

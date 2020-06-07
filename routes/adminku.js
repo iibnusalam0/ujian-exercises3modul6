@@ -28,7 +28,7 @@ exports.login = function(req, res)
                 else
                 {
                     message = 'Username or password incorrect! Please try again.';
-                    res.render('./admin/index',
+                    res.render('./adminLTE/index',
                     {
                         message: message
                     });
@@ -38,7 +38,7 @@ exports.login = function(req, res)
     }
     else
     { //jika route method-nya adalah bukan POST, tampilkan form login!
-        res.render('./admin/index', 
+        res.render('./adminLTE/index', 
         {
             message: message
         });
@@ -53,15 +53,15 @@ exports.home = function(req, res)
 
     if (adminId == null)
     {
-        res.redirect('/express/admin/login');
+        res.redirect('/ujian-exercises3modul6/adminLTE/login');
         return;
     }
     req.getConnection(function(err, connect)
     {
-        var sql = "SELECT * FROM news_tbl ORDER BY createdate DESC";
+        var sql = "SELECT * FROM product ORDER BY createdate DESC";
         var query = connect.query(sql, function(err, results)
         {            
-            res.render('./admin/home',
+            res.render('./adminLTE/home',
             {
                 pathname: 'home',
                 data: results
@@ -71,7 +71,7 @@ exports.home = function(req, res)
     });
 }
 
-exports.add_news = function(req, res)
+exports.add_produk = function(req, res)
 {
     var admin = req.session.admin;
     var adminId = req.session.adminId;
@@ -79,20 +79,20 @@ exports.add_news = function(req, res)
 
     if (adminId == null)
     {
-        res.redirect('/express/admin/login');
+        res.redirect('/ujian-exercises3modul6/adminLTE/login');
         return;
     }
-    res.render('./admin/home', 
+    res.render('./adminLTE/home', 
     {
-        pathname: 'add_news'
+        pathname: 'add_produk'
     });
 }
 
-exports.process_add_news = function(req, res)
+exports.process_add_produk = function(req, res)
 {
     var storage = multer.diskStorage
     ({
-        destination: './public/news_images',
+        destination: './public/adminLTE/produk_images',
         filename: function(req, file, callback)
         {
             callback(null, file.originalname);
@@ -115,31 +115,32 @@ exports.process_add_news = function(req, res)
         req.getConnection(function(err, connect)
         {
             var post = {
-                title: req.body.title,
-                description: req.body.description,
-                images: req.file.filename,
+                nama_produk: req.body.nm_produk,
+                harga_product: req.body.harga_produk,
+                des_product: req.body.des_produk,
+                gambar_produk: req.file.filename,
                 createdate: date
-            }
+            } 
 
             console.log(post);
 
-            var sql = "INSERT INTO news_tbl SET ?";
+            var sql = "INSERT INTO product SET ?";
 
             var query = connect.query(sql, post, function(err, results)
             {
                 if (err)
                 {
-                    console.log('Error input news: %s', err);
+                    console.log('Error input produk: %s', err);
                 }
 
                 req.flash('info', 'Success save data! Data has been saved.');
-                res.redirect('/express/admin/home');
+                res.redirect('/ujian-exercises3modul6/adminLTE/home');
             });
         });
     });
 }
 
-exports.edit_news = function(req, res)
+exports.edit_produk = function(req, res)
 {
     var admin = req.session.admin;
     var adminId = req.session.adminId;
@@ -147,39 +148,39 @@ exports.edit_news = function(req, res)
 
     if (adminId == null)
     {
-        res.redirect('/express/admin/login');
+        res.redirect('/ujian-exercises3modul6/adminLTE/login');
         return;
     }
     
-    var id_news = req.params.id_news;
+    var id_produk = req.params.id_produk;
 
     req.getConnection(function(err, connect)
     {
-        var sql = "SELECT * FROM news_tbl WHERE id_news=?";
-        var query = connect.query(sql, id_news, function(err, results)
+        var sql = "SELECT * FROM product WHERE id_product=?";
+        var query = connect.query(sql, id_produk, function(err, results)
         {
             if (err)
             {
-                console.log('Error show news: %s', err);
+                console.log('Error show produk: %s', err);
             }
 
-            res.render('./admin/home', 
+            res.render('./adminLTE/home', 
             {
-                id_news: id_news,
-                pathname: 'edit_news',
+                id_produk: id_produk,
+                pathname: 'edit_produk',
                 data: results
             });
         });
     });
 }
 
-exports.process_edit_news = function(req, res)
+exports.process_edit_produk = function(req, res)
 {
-    var id_news = req.params.id_news;
+    var id_produk = req.params.id_produk;
 
     var storage = multer.diskStorage
     ({
-        destination: './public/news_images',
+        destination: './public/adminLTE/produk_images',
         filename: function(req, file, callback)
         {
             callback(null, file.originalname);
@@ -211,45 +212,46 @@ exports.process_edit_news = function(req, res)
         req.getConnection(function (err, connect)
         {
             var post = {
-                title: req.body.title,
-                description: req.body.description,
-                images: image,
+                nama_produk: req.body.nm_produk,
+                harga_product: req.body.harga_produk,
+                des_product: req.body.des_produk,
+                gambar_produk: image,
                 createdate: date
             }
 
-            var sql = "UPDATE news_tbl SET ? WHERE id_news=?";
+            var sql = "UPDATE product SET ? WHERE id_product=?";
 
-            var query = connect.query(sql, [post, id_news], function(err, results)
+            var query = connect.query(sql, [post, id_produk], function(err, results)
             {
                 if (err)
                 {
-                    console.log("Error edit news: %s", err);
+                    console.log("Error edit produk: %s", err);
                 }
 
                 req.flash('info', 'Success edit data! Data has been updated.');
-                res.redirect('/express/admin/home');
+                res.redirect('/ujian-exercises3modul6/adminLTE/home');
             });
         });
     });
 }
 
-exports.delete_news = function(req, res)
+exports.delete_produk = function(req, res)
 {
-    var id_news = req.params.id_news;
+    var id_produk = req.params.id_produk;
 
     req.getConnection(function(err, connect)
     {
-        var sql = "DELETE FROM news_tbl WHERE id_news=?";
+        var sql = "DELETE FROM product WHERE id_product=?";
 
-        var query = connect.query(sql, id_news, function(err, results)
+        var query = connect.query(sql, id_produk, function(err, results)
         {
             if (err)
             {
-                console.log("Error delete news: %s", err);
+                console.log("Error delete produk: %s", err);
             }
 
             req.flash('info', 'Success delete data! Data has been deleted.');
-            res.redirect('/express/admin/home');
+            res.redirect('/ujian-exercises3modul6/adminLTE/home');
         })
     });
 }
@@ -258,6 +260,6 @@ exports.logout = function(req, res)
 {
     req.session.destroy(function(err)
     {
-        res.redirect('/express/admin/login');
+        res.redirect('/ujian-exercises3modul6/adminLTE/login');
     });
 }
