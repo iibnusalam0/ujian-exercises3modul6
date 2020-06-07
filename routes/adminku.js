@@ -92,7 +92,7 @@ exports.process_add_produk = function(req, res)
 {
     var storage = multer.diskStorage
     ({
-        destination: './public/adminLTE/produk_images',
+        destination: './public/images',
         filename: function(req, file, callback)
         {
             callback(null, file.originalname);
@@ -180,7 +180,7 @@ exports.process_edit_produk = function(req, res)
 
     var storage = multer.diskStorage
     ({
-        destination: './public/adminLTE/produk_images',
+        destination: './public/images',
         filename: function(req, file, callback)
         {
             callback(null, file.originalname);
